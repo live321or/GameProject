@@ -94,9 +94,9 @@ public class ExpListAdapter extends BaseExpandableListAdapter {
         }
 
         if (isExpanded) {
-            //Изменяем что-нибудь, если текущая Group раскрыта
+            //Изменяем что-нибудь, если текущая Group_Fragment раскрыта
         } else {
-            //Изменяем что-нибудь, если текущая Group скрыта
+            //Изменяем что-нибудь, если текущая Group_Fragment скрыта
         }
 
         TextView textGroup = (TextView) convertView.findViewById(R.id.textGroup);

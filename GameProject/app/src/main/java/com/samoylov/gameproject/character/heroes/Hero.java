@@ -15,6 +15,22 @@ public class Hero  implements Person {
     private double point =9;
     private double EXP = 0;
 
+    public boolean isGroup() {
+        return Group;
+    }
+
+    public void setGroup(boolean group) {
+        Group = group;
+    }
+
+    public boolean isGroupLider() {
+        return GroupLider;
+    }
+
+    public void setGroupLider(boolean groupLider) {
+        GroupLider = groupLider;
+    }
+
     private boolean Group=false;
     private boolean GroupLider=false;
 

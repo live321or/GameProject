@@ -10,6 +10,7 @@ public class Data {
 
     public static String cookie;
     public static ArrayList<Hero> bdHeros = new ArrayList<>();
+    public static ArrayList<Hero> GroupList = new ArrayList<>();
     public static ArrayList<Location> bdLocations= new ArrayList<>();
     public static ArrayList<Mob> bdMob=new ArrayList<>();
 }

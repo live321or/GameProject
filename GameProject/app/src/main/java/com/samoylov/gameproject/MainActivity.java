@@ -16,7 +16,6 @@ import com.samoylov.gameproject.authorization.PrefConfig;
 import com.samoylov.gameproject.authorization.RegistrationFragment;
 import com.samoylov.gameproject.authorization.User;
 import com.samoylov.gameproject.locations.Location;
-import com.samoylov.gameproject.locations.World;
 
 import retrofit2.Call;
 import retrofit2.Callback;

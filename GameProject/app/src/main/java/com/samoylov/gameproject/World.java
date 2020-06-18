@@ -1,4 +1,4 @@
-package com.samoylov.gameproject.locations;
+package com.samoylov.gameproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -24,6 +24,10 @@ import com.samoylov.gameproject.character.mobs.EnemyInfoFragment;
 import com.samoylov.gameproject.character.mobs.AboutPlaersFragment;
 import com.samoylov.gameproject.character.profile.MyBagFragment;
 import com.samoylov.gameproject.character.profile.MyProfileFragment;
+import com.samoylov.gameproject.group.Group_Fragment;
+import com.samoylov.gameproject.locations.FragmentLocation;
+import com.samoylov.gameproject.locations.StatusBarFragment;
+import com.samoylov.gameproject.locations.Test2;
 
 public class World extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Test2 {
 
@@ -45,6 +49,7 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
     private EnemyInfoFragment enemyInfoFragment;
     private MyProfileFragment myProfileFragment;
     private BattleFragment battleFragment;
+    private Group_Fragment groupFragment;
     private TextView name;
     private long regen_delay = 1000L;
     private long regen_period = 1000L;
@@ -82,19 +87,20 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
-        View headerView=navigationView.getHeaderView(0);
-        name=(TextView) headerView.findViewById(R.id.textView);
+        View headerView = navigationView.getHeaderView(0);
+        name = (TextView) headerView.findViewById(R.id.textView);
         name.setText(MainActivity.prefConfig.readName());
         setActionBarDrawerToggle();
 
-        statusBarFragment=new StatusBarFragment();
+        statusBarFragment = new StatusBarFragment();
         fragmentLocation = new FragmentLocation();
         aboutPlaersFragment = new AboutPlaersFragment();
         myProfileFragment = new MyProfileFragment();
+
 //        battleFragment = new BattleFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentLocation = FragmentLocation.newInstance(fragmentManager);
-        statusBarFragment=StatusBarFragment.newInstance(Data.bdHeros.get(0));
+        statusBarFragment = StatusBarFragment.newInstance(Data.bdHeros.get(0));
         Thread thread_regen_vision = new Thread() {
             @Override
             public void run() {
@@ -108,7 +114,8 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
                             }
                         });
                     }
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
             }
         };
         thread_regen_vision.start();
@@ -129,7 +136,8 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
                             }
                         });
                     }
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
             }
         };
         thread_regen.start();
@@ -151,6 +159,17 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
                 fragmentManager.beginTransaction().replace(R.id.containerFragments, myProfileFragment).addToBackStack(null).commit();
             }
         }
+        if (menuItem.getItemId() == R.id.myGroup) {
+            if (!v[0]) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                groupFragment = new Group_Fragment();
+                fragmentManager = getSupportFragmentManager();
+                setNavigationToolbar();
+                fragmentManager.beginTransaction().replace(R.id.containerFragments, groupFragment).addToBackStack(null).commit();
+            }
+        }
+
         if (menuItem.getItemId() == R.id.locationItem) {
             v[0] = true;
             fragmentManager = getSupportFragmentManager();
@@ -213,7 +232,7 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
     }
 
     @Override
-    public void onBattle(int id,int tag) {
+    public void onBattle(int id, int tag) {
         // Запрос с айди монстром////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // получил/обработал/записал//////////////////////////////////////////////////////////////////////////////////////////////////////////
         if (tag == 1) {
@@ -228,7 +247,7 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
             }
 //        timer_regen.schedule(task_regen, regen_delay, regen_period);
         }
-        if (tag==0){
+        if (tag == 0) {
 
             setNavigationToolbar();
             for (int i = 0; i < Data.bdMob.size(); i++) {
@@ -241,6 +260,7 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
             }
         }
     }
+
     @Override
     public void onEquipItem(String tag) {
         MyBagFragment myBagFragment = new MyBagFragment();

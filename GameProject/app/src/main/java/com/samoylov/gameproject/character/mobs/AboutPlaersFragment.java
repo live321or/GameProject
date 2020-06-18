@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.samoylov.gameproject.Data;
+import com.samoylov.gameproject.World;
 import com.samoylov.gameproject.character.heroes.Hero;
 import com.samoylov.gameproject.character.heroes.HeroStat;
 import com.samoylov.gameproject.R;
@@ -29,9 +31,9 @@ public class AboutPlaersFragment extends Fragment {
     private ArrayList<HeroStat> gg;
     TextView getName, getLvl;
     RecyclerView profileList;
-    ProfileAdapter profileAdapter;
-    private int i=0;
-    private Button button;
+    AboutProfileAdapter aboutProfileAdapter;
+    private int i = 0;
+    private Button pGroup, pFriend, pMes;
 
     public static AboutPlaersFragment newInstance(int i) {
         AboutPlaersFragment fragment = new AboutPlaersFragment();
@@ -61,11 +63,27 @@ public class AboutPlaersFragment extends Fragment {
         getName.setText(hero.getName());
         getLvl.setText("Уровень: " + Double.toString(hero.getLvl()));
 
+        pGroup = v.findViewById(R.id.pGroup);
+        pGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!Data.bdHeros.get(0).isGroup()||Data.bdHeros.get(0).isGroupLider())
+                    Toast.makeText(getActivity().getApplicationContext(),"2",Toast.LENGTH_SHORT).show();
+                if (!hero.isGroup()) {
+                    Toast.makeText(getActivity().getApplicationContext(),"3",Toast.LENGTH_LONG).show();
+                    Data.GroupList.add(hero);
+                    hero.setGroup(true);
+                    Data.bdHeros.get(0).setGroup(true);
+                    Data.bdHeros.get(0).setGroupLider(true);
+                }
+            }
+        });
+
         profileList = v.findViewById(R.id.list_Profile_Stat);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         profileList.setLayoutManager(layoutManager);
-        profileAdapter = new ProfileAdapter(hero.heroStats);
-        profileList.setAdapter(profileAdapter);
+        aboutProfileAdapter = new AboutProfileAdapter(hero.heroStats);
+        profileList.setAdapter(aboutProfileAdapter);
         return v;
     }
 

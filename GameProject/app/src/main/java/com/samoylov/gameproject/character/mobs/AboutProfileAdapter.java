@@ -13,10 +13,10 @@ import com.samoylov.gameproject.R;
 
 import java.util.ArrayList;
 
-public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder> {
+public class AboutProfileAdapter extends RecyclerView.Adapter<AboutProfileAdapter.ViewHolder> {
     private ArrayList<HeroStat> heroStats;
 
-    public ProfileAdapter(ArrayList<HeroStat> heroStats) {
+    public AboutProfileAdapter(ArrayList<HeroStat> heroStats) {
         this.heroStats = heroStats;
     }
 

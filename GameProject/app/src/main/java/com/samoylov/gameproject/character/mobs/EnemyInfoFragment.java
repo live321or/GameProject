@@ -34,7 +34,7 @@ public class EnemyInfoFragment extends Fragment {
     private ImageView armour;
     private boolean onW = false, onAr = false;
     private RecyclerView eStat;
-    private ProfileAdapter profileAdapter;
+    private AboutProfileAdapter aboutProfileAdapter;
     private int i = 0;
     private Button button, button2;
     private Test2 test;
@@ -130,8 +130,8 @@ public class EnemyInfoFragment extends Fragment {
     private void onBuildListStst() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         eStat.setLayoutManager(layoutManager);
-        profileAdapter = new ProfileAdapter(mob.mobStats);
-        eStat.setAdapter(profileAdapter);
+        aboutProfileAdapter = new AboutProfileAdapter(mob.mobStats);
+        eStat.setAdapter(aboutProfileAdapter);
     }
 
 

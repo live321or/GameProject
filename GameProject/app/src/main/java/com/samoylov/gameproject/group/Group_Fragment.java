@@ -10,20 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.samoylov.gameproject.Data;
 import com.samoylov.gameproject.R;
 
 
-public class Group extends Fragment {
+public class Group_Fragment extends Fragment {
 
     private RecyclerView groupList;
+    private AdapterGroupList adapterGroupList;
 
-    public Group() {
+    public Group_Fragment() {
         // Required empty public constructor
     }
 
 
-    public static Group newInstance() {
-        Group fragment = new Group();
+    public static Group_Fragment newInstance() {
+        Group_Fragment fragment = new Group_Fragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -44,6 +46,9 @@ public class Group extends Fragment {
         View v=inflater.inflate(R.layout.group, container, false);
         groupList=v.findViewById(R.id.group_list);
         LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        groupList.setLayoutManager(layoutManager);
+        adapterGroupList =new AdapterGroupList(Data.GroupList,Data.bdHeros.get(0).isGroupLider());
+        groupList.setAdapter(adapterGroupList);
         return v;
     }
 }
