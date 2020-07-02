@@ -145,6 +145,15 @@ public class Mob  implements Person {
 
     }
 
+    @Override
+    public void setPosition(int position) {
+
+    }
+
+    @Override
+    public int getPosition() {
+        return 0;
+    }
 
 
     @Override

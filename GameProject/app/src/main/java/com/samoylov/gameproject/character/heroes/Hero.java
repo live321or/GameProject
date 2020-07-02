@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Hero  implements Person {
     HeroStat heroStat;
+    private int position;
     private String name;
     private String location = "Москва";
 
@@ -456,6 +457,16 @@ public class Hero  implements Person {
         this.Int = atribut2;
         this.Luc = atribut3;
 
+    }
+
+    @Override
+    public void setPosition(int position) {
+        this.position=position;
+    }
+
+    @Override
+    public int getPosition() {
+        return position;
     }
 }
 

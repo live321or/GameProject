@@ -159,9 +159,13 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
 
 //        Data.bdHeros.add(hero);
         Data.bdHeros.add(0,hero);
+        Data.bdHeros.get(Data.bdHeros.size()-1).setPosition(Data.bdHeros.size()-1);
         Data.bdHeros.add(hero2);
+        Data.bdHeros.get(Data.bdHeros.size()-1).setPosition(Data.bdHeros.size()-1);
         Data.bdHeros.add(hero3);
+        Data.bdHeros.get(Data.bdHeros.size()-1).setPosition(Data.bdHeros.size()-1);
         Data.bdHeros.add(hero4);
+        Data.bdHeros.get(Data.bdHeros.size()-1).setPosition(Data.bdHeros.size()-1);
 
         Intent intent = new Intent(this, World.class);
 //

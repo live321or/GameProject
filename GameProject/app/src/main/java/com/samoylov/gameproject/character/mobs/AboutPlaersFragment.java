@@ -28,7 +28,7 @@ import java.util.Objects;
  * create an instance of this fragment.
  */
 public class AboutPlaersFragment extends Fragment {
-    private Hero hero;
+    private int hero;
     private ArrayList<HeroStat> gg;
     TextView getName, getLvl;
     RecyclerView profileList;
@@ -46,9 +46,9 @@ public class AboutPlaersFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (i != 0) {
-            hero = Data.bdHeros.get(i);
+            hero = i;
         } else {
-            hero = Data.bdHeros.get(0);
+            hero = 0;
         }
     }
 
@@ -59,20 +59,20 @@ public class AboutPlaersFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         getName = (TextView) v.findViewById(R.id.name_Player);
         getLvl = (TextView) v.findViewById(R.id.lvl_Player);
-        getName.setText(hero.getName());
+        getName.setText(Data.bdHeros.get(hero).getName());
 
-        getName.setText(hero.getName());
-        getLvl.setText("Уровень: " + Double.toString(hero.getLvl()));
+        getName.setText(Data.bdHeros.get(hero).getName() + Data.bdHeros.get(hero).getPosition());
+        getLvl.setText("Уровень: " + (Data.bdHeros.get(hero).getLvl()));
 
         pGroup = v.findViewById(R.id.pGroup);
-        if (hero.getName().equals(Data.bdHeros.get(0).getName())) {
+        if (Data.bdHeros.get(hero).getName().equals(Data.bdHeros.get(0).getName())) {
             pGroup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if (!hero.isGroup()) {
+                    if (!Data.bdHeros.get(hero).isGroup()) {
                         Toast.makeText(getActivity().getApplicationContext(), "Вас пригласили в группу", Toast.LENGTH_LONG).show();
-                        Data.bdInvite.add(Data.bdHeros.get(1));
+                        Data.bdInvite.add(Data.bdHeros.get(1).getPosition());
                     } else {
                         Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "Уже в группе", Toast.LENGTH_LONG).show();
                     }
@@ -83,27 +83,28 @@ public class AboutPlaersFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    if (!Data.bdHeros.get(0).isGroup() || Data.bdHeros.get(0).isGroupLider())
+                    if (!Data.bdHeros.get(0).isGroup() || Data.bdHeros.get(0).isGroupLider()) {
                         Toast.makeText(getActivity().getApplicationContext(), "Ты можешь пригласить", Toast.LENGTH_SHORT).show();
-                    else
+                        if (!Data.bdHeros.get(hero).isGroup()) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Добавлен", Toast.LENGTH_LONG).show();
+                            Data.GroupList.add(Data.bdHeros.get(hero).getPosition());
+                            Data.bdHeros.get(hero).setGroup(true);
+                            Data.bdHeros.get(0).setGroup(true);
+                            Data.bdHeros.get(0).setGroupLider(true);
+                        } else {
+                            Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "Уже в группе", Toast.LENGTH_LONG).show();
+                        }
+                    } else
                         Toast.makeText(getActivity().getApplicationContext(), "Ты НЕ можешь пригласить", Toast.LENGTH_SHORT).show();
 
-                    if (!hero.isGroup()&&!Data.bdHeros.get(0).isGroup()) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Добавлен", Toast.LENGTH_LONG).show();
-                        Data.GroupList.add(hero);
-                        hero.setGroup(true);
-                        Data.bdHeros.get(0).setGroup(true);
-                        Data.bdHeros.get(0).setGroupLider(true);
-                    } else {
-                        Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "Уже в группе", Toast.LENGTH_LONG).show();
-                    }
+
                 }
             });
         }
         profileList = v.findViewById(R.id.list_Profile_Stat);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         profileList.setLayoutManager(layoutManager);
-        aboutProfileAdapter = new AboutProfileAdapter(hero.heroStats);
+        aboutProfileAdapter = new AboutProfileAdapter(Data.bdHeros.get(hero).heroStats);
         profileList.setAdapter(aboutProfileAdapter);
         return v;
     }

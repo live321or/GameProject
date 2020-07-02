@@ -45,4 +45,6 @@ public interface Person {
     void setArmor(double Armor);
     double getAtribut(int num);
     void setAtribut( double atribut, double atribut1, double atribut2, double atribut3);
+    void setPosition(int position);
+    int getPosition();
 }
