@@ -21,7 +21,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/nFHero"
+            android:id="@+id/nLHero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
@@ -35,7 +35,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/hpGHero"
+                android:id="@+id/hpLHero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hp" />

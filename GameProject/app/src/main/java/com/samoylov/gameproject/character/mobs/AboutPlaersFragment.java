@@ -20,6 +20,7 @@ import com.samoylov.gameproject.character.heroes.HeroStat;
 import com.samoylov.gameproject.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,21 +65,41 @@ public class AboutPlaersFragment extends Fragment {
         getLvl.setText("Уровень: " + Double.toString(hero.getLvl()));
 
         pGroup = v.findViewById(R.id.pGroup);
-        pGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!Data.bdHeros.get(0).isGroup()||Data.bdHeros.get(0).isGroupLider())
-                    Toast.makeText(getActivity().getApplicationContext(),"2",Toast.LENGTH_SHORT).show();
-                if (!hero.isGroup()) {
-                    Toast.makeText(getActivity().getApplicationContext(),"3",Toast.LENGTH_LONG).show();
-                    Data.GroupList.add(hero);
-                    hero.setGroup(true);
-                    Data.bdHeros.get(0).setGroup(true);
-                    Data.bdHeros.get(0).setGroupLider(true);
-                }
-            }
-        });
+        if (hero.getName().equals(Data.bdHeros.get(0).getName())) {
+            pGroup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    if (!hero.isGroup()) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Вас пригласили в группу", Toast.LENGTH_LONG).show();
+                        Data.bdInvite.add(Data.bdHeros.get(1));
+                    } else {
+                        Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "Уже в группе", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        } else {
+            pGroup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (!Data.bdHeros.get(0).isGroup() || Data.bdHeros.get(0).isGroupLider())
+                        Toast.makeText(getActivity().getApplicationContext(), "Ты можешь пригласить", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getActivity().getApplicationContext(), "Ты НЕ можешь пригласить", Toast.LENGTH_SHORT).show();
+
+                    if (!hero.isGroup()&&!Data.bdHeros.get(0).isGroup()) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Добавлен", Toast.LENGTH_LONG).show();
+                        Data.GroupList.add(hero);
+                        hero.setGroup(true);
+                        Data.bdHeros.get(0).setGroup(true);
+                        Data.bdHeros.get(0).setGroupLider(true);
+                    } else {
+                        Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "Уже в группе", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
         profileList = v.findViewById(R.id.list_Profile_Stat);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         profileList.setLayoutManager(layoutManager);
