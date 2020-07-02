@@ -44,46 +44,42 @@ public class AdapterGroupList extends RecyclerView.Adapter {
         if(!isGroup){
             GroupViewHolderFactory.InviteHolder inviteHolder =
                     (GroupViewHolderFactory.InviteHolder  ) viewHolder;
-            inviteHolder.yes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Data.bdInvite.remove(position);
-                    Data.bdHeros.get(0).setGroup(true);
-                    Data.GroupList.add(Data.bdHeros.get(0));
-                    Data.GroupList.add(Data.bdHeros.get(1));
-                    onUpdate.onUpdate(1);
-                }
+
+            inviteHolder.name.setText(groupList.get(position).getName());
+            inviteHolder.yes.setOnClickListener(v -> {
+                Data.bdInvite.remove(position);
+                Data.bdHeros.get(0).setGroup(true);
+                Data.GroupList.add(Data.bdHeros.get(0));
+                Data.GroupList.add(Data.bdHeros.get(1));
+                onUpdate.onUpdate(1);
             });
-            inviteHolder.no.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Data.bdInvite.remove(position);
-                    onUpdate.onUpdate(0);
-                }
+            inviteHolder.no.setOnClickListener(v -> {
+                Data.bdInvite.remove(position);
+                onUpdate.onUpdate(0);
             });
         }else if(!isLider){
-            GroupViewHolderFactory.Ne_Lider_Holder neLiderHolder =
+            GroupViewHolderFactory.Ne_Lider_Holder holder =
                     (GroupViewHolderFactory.Ne_Lider_Holder) viewHolder;
+            holder.name.setText(groupList.get(position).getName());
+            holder.hp.setText(""+groupList.get(position).getHp());
+
 
         }else {
             GroupViewHolderFactory.Lider_Holder liderHolder =
                     (GroupViewHolderFactory.Lider_Holder) viewHolder;
             liderHolder.name.setText(groupList.get(position).getName());
             liderHolder.hp.setText(""+groupList.get(position).getHp());
-            liderHolder.gKikL.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            liderHolder.gKikL.setOnClickListener(v -> {
 
-                    for (int i = 0; i <Data.bdHeros.size(); i++) {
-                        if (groupList.get(position).getName().equals(Data.bdHeros.get(i).getName())) {
-                            Data.bdHeros.get(i).setGroup(false);
-                            Data.GroupList.remove(groupList.get(position));
-                            i=Data.bdHeros.size();
-                            onUpdate.onUpdate(0);
-                        }
+                for (int i = 0; i <Data.bdHeros.size(); i++) {
+                    if (groupList.get(position).getName().equals(Data.bdHeros.get(i).getName())) {
+                        Data.bdHeros.get(i).setGroup(false);
+                        Data.GroupList.remove(groupList.get(position));
+                        i=Data.bdHeros.size();
+                        onUpdate.onUpdate(0);
                     }
-
                 }
+
             });
 
         }
